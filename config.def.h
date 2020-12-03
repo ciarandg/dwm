@@ -121,12 +121,21 @@ static Key keys[] = {
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e lf") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e htop") },
 
+	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} }, // tile
+	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} }, // bstack
+	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} }, // spiral
+	{ MODKEY|ShiftMask,		XK_y,		setlayout,	{.v = &layouts[3]} }, // dwindle
+	{ MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} }, // deck
+	{ MODKEY|ShiftMask,		XK_u,		setlayout,	{.v = &layouts[5]} }, // monocle
 	{ MODKEY,			XK_i,		spawn,		SHCMD("st -e weechat") },
 
 	{ MODKEY, 			XK_backslash,	spawn,		SHCMD("mpv_clipboard") },
+	{ MODKEY,			XK_a,		togglegaps,	{0} },
+	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },
 	{ MODKEY|ShiftMask,             XK_s,		spawn,		SHCMD("steam") },
 	{ MODKEY,                       XK_d,		spawn,		{.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_d,		spawn,		SHCMD("discord") },
+	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[6]} }, // floating
 	{ MODKEY,			XK_g,		shiftview,	{.i = -1} },
 	{ MODKEY|ShiftMask,		XK_g,		shifttag,	{.i = -1} },
 	{ MODKEY,                       XK_h,		setmfact,	{.f = -0.05} },
@@ -134,6 +143,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,		setmfact,	{.f = +0.05} },
 	{ MODKEY,			XK_semicolon,	shiftview,	{.i = 1} },
 	{ MODKEY|ShiftMask,		XK_semicolon,	shifttag,	{.i = 1} },
+	{ MODKEY,			XK_z,		incrgaps,	{.i = +3 } },
+	{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -3 } },
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock") },
 	{ MODKEY,			XK_c,	 	togglescratch,	{.ui = 0 } },
 	{ MODKEY,                       XK_b,		togglebar,	{0} },
