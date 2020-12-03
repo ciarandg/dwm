@@ -170,6 +170,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    		view,		{0} },
 	{ MODKEY,			XK_Return, 		spawn,		{.v = termcmd } },
 	{ MODKEY,                       XK_space,  		zoom,		{0} },
+	{ MODKEY,			XK_F2,			quit,		{1} },
 };
 
 /* button definitions */
