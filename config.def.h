@@ -140,6 +140,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,		spawn,		SHCMD("steam") },
 	{ MODKEY,                       XK_d,		spawn,		{.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_d,		spawn,		SHCMD("discord") },
+	{ MODKEY,                       XK_f,		togglefullscr,	{0} },
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[6]} }, // floating
 	{ MODKEY,			XK_g,		shiftview,	{.i = -1} },
 	{ MODKEY|ShiftMask,		XK_g,		shifttag,	{.i = -1} },
