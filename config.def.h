@@ -131,8 +131,15 @@ static Key keys[] = {
 	{ MODKEY,			XK_i,			spawn,		SHCMD("st -e weechat") },
 	{ MODKEY,			XK_o,			incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_o,			incnmaster,     {.i = -1 } },
+	{ MODKEY,			XK_p,			spawn,		SHCMD("mpc toggle; mpd_update") },
+	{ MODKEY|ShiftMask,		XK_p,			spawn,		SHCMD("audiomenu") },
+	{ MODKEY,			XK_bracketleft,		spawn,		SHCMD("mpc seek -10; mpd_update") },
+	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -60; mpd_update") },
+	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10; mpd_update") },
+	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +60; mpd_update") },
 
 	{ MODKEY, 			XK_backslash,		spawn,		SHCMD("mpv_clipboard") },
+
 	{ MODKEY,			XK_a,			togglegaps,	{0} },
 	{ MODKEY|ShiftMask,		XK_a,			defaultgaps,	{0} },
 	{ MODKEY,			XK_s,			togglesticky,	{0} },
@@ -154,6 +161,10 @@ static Key keys[] = {
 	{ MODKEY,			XK_c,	 		togglescratch,	{.ui = 0 } },
 	{ MODKEY,                       XK_b,			togglebar,	{0} },
 	{ MODKEY,			XK_m,	 		togglescratch,	{.ui = 1 } },
+	{ MODKEY,			XK_comma,		spawn,		SHCMD("mpc seek 0%; mpd_update") },
+	{ MODKEY|ShiftMask,		XK_comma,		spawn,		SHCMD("mpc prev; mpd_update") },
+	{ MODKEY,			XK_period,		spawn,		SHCMD("mpc repeat; mpd_update") },
+	{ MODKEY|ShiftMask,		XK_period,		spawn,		SHCMD("mpc next; mpd_update") },
 
 	{ MODKEY|ShiftMask,		XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY,                       XK_Tab,    		view,		{0} },
