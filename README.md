@@ -4,6 +4,9 @@ dwm is an extremely fast, small, and dynamic window manager for X. This is my pe
 ## Dependencies
 ### Fonts
 	- Noto Nerd Font
+	- mplus Nerd Font
+	- Twemoji
+	- Monospace
 ### Other
 	- In order to build dwm you need the Xlib header files.
 
