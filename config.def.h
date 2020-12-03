@@ -130,6 +130,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} }, // deck
 	{ MODKEY|ShiftMask,		XK_u,		setlayout,	{.v = &layouts[5]} }, // monocle
 	{ MODKEY,			XK_i,		spawn,		SHCMD("st -e weechat") },
+	{ MODKEY,			XK_o,		incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
 
 	{ MODKEY, 			XK_backslash,	spawn,		SHCMD("mpv_clipboard") },
 	{ MODKEY,			XK_a,		togglegaps,	{0} },
