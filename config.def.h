@@ -99,67 +99,66 @@ static const char *termcmd[]  = { "st", "-e", term_shell, NULL };
 
 #include "shiftview.c"
 static Key keys[] = {
-	/* modifier                     key		function        argument */
-	STACKKEYS(MODKEY,				focus)
-	STACKKEYS(MODKEY|ShiftMask,			push)
-	TAGKEYS(                        XK_1,                      	0)
-	TAGKEYS(                        XK_2,                      	1)
-	TAGKEYS(                        XK_3,                      	2)
-	TAGKEYS(                        XK_4,                      	3)
-	TAGKEYS(                        XK_5,                      	4)
-	TAGKEYS(                        XK_6,                      	5)
-	TAGKEYS(                        XK_7,                      	6)
-	TAGKEYS(                        XK_8,                      	7)
-	TAGKEYS(                        XK_9,                      	8)
+	/* modifier                     key			function       	argument */
+	STACKKEYS(MODKEY,					focus)
+	STACKKEYS(MODKEY|ShiftMask,				push)
+	TAGKEYS(                        XK_1,                      		0)
+	TAGKEYS(                        XK_2,                      		1)
+	TAGKEYS(                        XK_3,                      		2)
+	TAGKEYS(                        XK_4,                      		3)
+	TAGKEYS(                        XK_5,                      		4)
+	TAGKEYS(                        XK_6,                      		5)
+	TAGKEYS(                        XK_7,                      		6)
+	TAGKEYS(                        XK_8,                      		7)
+	TAGKEYS(                        XK_9,                      		8)
 
-	{ MODKEY,			XK_grave,	spawn,		SHCMD("gopass_dmenu") },
+	{ MODKEY,			XK_grave,		spawn,		SHCMD("gopass_dmenu") },
+	{ MODKEY,			XK_minus,		spawn,		SHCMD("brightinc -10") },
+	{ MODKEY,			XK_equal,		spawn,		SHCMD("brightinc 10") },
 
-	{ MODKEY,			XK_minus,	spawn,		SHCMD("brightinc -10") },
-	{ MODKEY,			XK_equal,	spawn,		SHCMD("brightinc 10") },
+	{ MODKEY,                       XK_q,			killclient,	{0} },
+	{ MODKEY,			XK_w,			spawn,		SHCMD("$BROWSER") },
+	{ MODKEY,			XK_e,			spawn,		SHCMD("emacs") },
+	{ MODKEY,			XK_r,			spawn,		SHCMD("st -e lf") },
+	{ MODKEY|ShiftMask,		XK_r,			spawn,		SHCMD("st -e htop") },
 
-	{ MODKEY,                       XK_q,		killclient,	{0} },
-	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY,			XK_e,		spawn,		SHCMD("emacs") },
-	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e lf") },
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e htop") },
+	{ MODKEY,			XK_t,			setlayout,	{.v = &layouts[0]} }, // tile
+	{ MODKEY|ShiftMask,		XK_t,			setlayout,	{.v = &layouts[1]} }, // bstack
+	{ MODKEY,			XK_y,			setlayout,	{.v = &layouts[2]} }, // spiral
+	{ MODKEY|ShiftMask,		XK_y,			setlayout,	{.v = &layouts[3]} }, // dwindle
+	{ MODKEY,			XK_u,			setlayout,	{.v = &layouts[4]} }, // deck
+	{ MODKEY|ShiftMask,		XK_u,			setlayout,	{.v = &layouts[5]} }, // monocle
+	{ MODKEY,			XK_i,			spawn,		SHCMD("st -e weechat") },
+	{ MODKEY,			XK_o,			incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,		XK_o,			incnmaster,     {.i = -1 } },
 
-	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} }, // tile
-	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} }, // bstack
-	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} }, // spiral
-	{ MODKEY|ShiftMask,		XK_y,		setlayout,	{.v = &layouts[3]} }, // dwindle
-	{ MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} }, // deck
-	{ MODKEY|ShiftMask,		XK_u,		setlayout,	{.v = &layouts[5]} }, // monocle
-	{ MODKEY,			XK_i,		spawn,		SHCMD("st -e weechat") },
-	{ MODKEY,			XK_o,		incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
-
-	{ MODKEY, 			XK_backslash,	spawn,		SHCMD("mpv_clipboard") },
-	{ MODKEY,			XK_a,		togglegaps,	{0} },
-	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },
-	{ MODKEY,			XK_s,		togglesticky,	{0} },
-	{ MODKEY|ShiftMask,             XK_s,		spawn,		SHCMD("steam") },
-	{ MODKEY,                       XK_d,		spawn,		{.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_d,		spawn,		SHCMD("discord") },
-	{ MODKEY,                       XK_f,		togglefullscr,	{0} },
-	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[6]} }, // floating
-	{ MODKEY,			XK_g,		shiftview,	{.i = -1} },
-	{ MODKEY|ShiftMask,		XK_g,		shifttag,	{.i = -1} },
-	{ MODKEY,                       XK_h,		setmfact,	{.f = -0.05} },
+	{ MODKEY, 			XK_backslash,		spawn,		SHCMD("mpv_clipboard") },
+	{ MODKEY,			XK_a,			togglegaps,	{0} },
+	{ MODKEY|ShiftMask,		XK_a,			defaultgaps,	{0} },
+	{ MODKEY,			XK_s,			togglesticky,	{0} },
+	{ MODKEY|ShiftMask,             XK_s,			spawn,		SHCMD("steam") },
+	{ MODKEY,                       XK_d,			spawn,		{.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_d,			spawn,		SHCMD("discord") },
+	{ MODKEY,                       XK_f,			togglefullscr,	{0} },
+	{ MODKEY|ShiftMask,		XK_f,			setlayout,	{.v = &layouts[6]} }, // floating
+	{ MODKEY,			XK_g,			shiftview,	{.i = -1} },
+	{ MODKEY|ShiftMask,		XK_g,			shifttag,	{.i = -1} },
+	{ MODKEY,                       XK_h,			setmfact,	{.f = -0.05} },
 	/* J and K are automatically bound above in STACKKEYS */
-	{ MODKEY,                       XK_l,		setmfact,	{.f = +0.05} },
-	{ MODKEY,			XK_semicolon,	shiftview,	{.i = 1} },
-	{ MODKEY|ShiftMask,		XK_semicolon,	shifttag,	{.i = 1} },
-	{ MODKEY,			XK_z,		incrgaps,	{.i = +3 } },
-	{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -3 } },
-	{ MODKEY,			XK_x,		spawn,		SHCMD("slock") },
-	{ MODKEY,			XK_c,	 	togglescratch,	{.ui = 0 } },
-	{ MODKEY,                       XK_b,		togglebar,	{0} },
-	{ MODKEY,			XK_m,	 	togglescratch,	{.ui = 1 } },
+	{ MODKEY,                       XK_l,			setmfact,	{.f = +0.05} },
+	{ MODKEY,			XK_semicolon,		shiftview,	{.i = 1} },
+	{ MODKEY|ShiftMask,		XK_semicolon,		shifttag,	{.i = 1} },
+	{ MODKEY,			XK_z,			incrgaps,	{.i = +3 } },
+	{ MODKEY|ShiftMask,		XK_z,			incrgaps,	{.i = -3 } },
+	{ MODKEY,			XK_x,			spawn,		SHCMD("slock") },
+	{ MODKEY,			XK_c,	 		togglescratch,	{.ui = 0 } },
+	{ MODKEY,                       XK_b,			togglebar,	{0} },
+	{ MODKEY,			XK_m,	 		togglescratch,	{.ui = 1 } },
 
-	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("sysact") },
-	{ MODKEY,                       XK_Tab,    	view,		{0} },
-	{ MODKEY,			XK_Return, 	spawn,		{.v = termcmd } },
-	{ MODKEY,                       XK_space,  	zoom,		{0} },
+	{ MODKEY|ShiftMask,		XK_BackSpace,		spawn,		SHCMD("sysact") },
+	{ MODKEY,                       XK_Tab,    		view,		{0} },
+	{ MODKEY,			XK_Return, 		spawn,		{.v = termcmd } },
+	{ MODKEY,                       XK_space,  		zoom,		{0} },
 };
 
 /* button definitions */
