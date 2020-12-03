@@ -27,6 +27,18 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"st", "-n", "spcalc", "-g", "60x17", "-e", "rquiet", NULL };
+const char *spcmd2[] = {"st", "-n", "spmusic", "-g", "118x19", "-e", "ncmpcpp-ueberzug", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spcalc",      spcmd1},
+	{"spmusic",	spcmd2},
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -123,7 +135,9 @@ static Key keys[] = {
 	{ MODKEY,			XK_semicolon,	shiftview,	{.i = 1} },
 	{ MODKEY|ShiftMask,		XK_semicolon,	shifttag,	{.i = 1} },
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock") },
+	{ MODKEY,			XK_c,	 	togglescratch,	{.ui = 0 } },
 	{ MODKEY,                       XK_b,		togglebar,	{0} },
+	{ MODKEY,			XK_m,	 	togglescratch,	{.ui = 1 } },
 
 	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("sysact") },
 	{ MODKEY,                       XK_Tab,    	view,		{0} },
