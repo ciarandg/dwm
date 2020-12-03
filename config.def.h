@@ -83,6 +83,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run" };
 static const char *termcmd[]  = { "st", "-e", term_shell, NULL };
 
+#include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key		function        argument */
 	STACKKEYS(MODKEY,				focus)
@@ -114,9 +115,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,		spawn,		SHCMD("steam") },
 	{ MODKEY,                       XK_d,		spawn,		{.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_d,		spawn,		SHCMD("discord") },
+	{ MODKEY,			XK_g,		shiftview,	{.i = -1} },
 	{ MODKEY,                       XK_h,		setmfact,	{.f = -0.05} },
 	/* J and K are automatically bound above in STACKKEYS */
 	{ MODKEY,                       XK_l,		setmfact,	{.f = +0.05} },
+	{ MODKEY,			XK_semicolon,	shiftview,	{.i = 1} },
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock") },
 	{ MODKEY,                       XK_b,		togglebar,	{0} },
 
