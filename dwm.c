@@ -696,7 +696,9 @@ void
 currentsong(char *name)
 {
 	FILE *mpc;
-	if ((mpc = popen("mpc", "r")) == NULL) {
+
+	name[0] = '\0';
+	if ((mpc = popen("mpc current", "r")) == NULL) {
 		strcpy(name, broken);
 	} else {
 		fscanf(mpc, "%[^\n]", name); // fill name with first line of command output
