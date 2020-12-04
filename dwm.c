@@ -67,7 +67,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeWindowNorm, SchemeWindowSel, SchemeBar, SchemeUL, SchemePal }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -293,6 +293,7 @@ static int restart = 0;
 static int running = 1;
 static Cur *cursor[CurLast];
 static Clr **scheme;
+static Clr *palscheme;
 static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
@@ -698,7 +699,7 @@ currentsong(char *name)
 	FILE *mpc;
 
 	name[0] = '\0';
-	if ((mpc = popen("mpc current", "r")) == NULL) {
+	if ((mpc = popen("mpc current | mpd_color", "r")) == NULL) {
 		strcpy(name, broken);
 	} else {
 		fscanf(mpc, "%[^\n]", name); // fill name with first line of command output
@@ -757,6 +758,10 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
+	float tagunderlinew = 0.6; // 1 is full width of tag box
+	float esunderlinew = 1.0; // 1 is full width of extra status message
+	float underlineh = 0.15; // 1 is full height of bar
+
 	int x, w, tw = 0;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
@@ -768,26 +773,54 @@ drawbar(Monitor *m)
 
 	int blockcount = 0;
 	int pos[16]; // an array of delimiter indices
+	int palvals[16]; // an array of palette values
 
 	/* use blocksep to split status into separate underlined blocks */
 	for (char *s = strchr(curstext, blocksep); s != NULL; s = strchr(s+1, blocksep)) {
 		*s = ' ';
 		if (*(s-2) == coldelim) {
+			int colval = *(s-1) - '0';
+			palvals[blockcount] = colval + 1;
 			memmove(s-2, s, strlen(curstext) - (int)(s - curstext));
 			s -= 2;
 			curstext[strlen(curstext) - 2] = '\0';
+		} else {
+			palvals[blockcount] = 0;
 		}
 
 		pos[blockcount] = (int)(s - curstext) + 1;
 		blockcount++;
 	}
 
+	tw = TEXTW(curstext) - lrpad + statuspadding;
+	drw_setscheme(drw, scheme[SchemeBar]);
+	drw_text(drw, m->ww - tw, 0, tw, bh, 0, curstext, 0); // main status
 
-	/* draw status first so it can be overdrawn by tags later */
-	if (m == selmon) { /* status is only drawn on selected monitor */
-		drw_setscheme(drw, scheme[SchemeNorm]);
-		tw = TEXTW(curstext) - lrpad + statuspadding;
-		drw_text(drw, m->ww - tw, 0, tw, bh, 0, curstext, 0); // main status
+	for (int i = 0; i < blockcount; i++) {
+		char prevtext[256]; // the text leading up to the block that is being underlined
+		char btext[256]; // the text of the current block
+		int blocklen = pos[i] - pos[i - 1] - 1;
+
+		if (i == 0) {
+			prevtext[0] = '\0';
+			memcpy(btext, &curstext[i], pos[i] - 1);
+			btext[pos[i] - 1] = '\0';
+		} else {
+			strncpy(prevtext, curstext, pos[i - 1]);
+			prevtext[pos[i - 1]] = '\0';
+
+			memcpy(btext, &curstext[pos[i - 1]], blocklen);
+			btext[blocklen] = '\0';
+		}
+
+		int ulx = m->ww - tw + TEXTW(prevtext) - lrpad;
+		int uly = bh - bh * underlineh + 1;
+		int ulw = TEXTW(btext) - lrpad;
+		int ulh = bh * underlineh;
+		int colval = palvals[i];
+
+		drw_setscheme(drw, palscheme);
+		drw_rect(drw, ulx, uly, ulw, ulh, 1, colval ? colval - 1 : 1);
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -795,6 +828,7 @@ drawbar(Monitor *m)
 		if (c->isurgent)
 			urg |= c->tags;
 	}
+
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
 		/* do not draw vacant tags */
@@ -802,24 +836,43 @@ drawbar(Monitor *m)
 		continue;
 
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-				urg & 1 << i);
+		drw_setscheme(drw, scheme[SchemeBar]);
+		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i); // tag list
+
+		drw_setscheme(drw, scheme[SchemeUL]);
+		if (m->tagset[m->seltags] & 1 << i)
+			drw_rect(drw,
+				(1.0 - tagunderlinew) * 0.5 * w + x,
+				bh - (bh * underlineh) + 1,
+				w * tagunderlinew,
+				bh * underlineh,
+				1, 0);
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
-	drw_setscheme(drw, scheme[SchemeNorm]);
+	drw_setscheme(drw, scheme[SchemeBar]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0); // draw layout symbol
 
 	if ((w = m->ww - tw - x) > bh) {
+		int colval = 1;
 		char songname[256];
 		currentsong(songname);
+		int colorcode = songname[strlen(songname) - 1] - '0';
+		songname[strlen(songname) - 2] = '\0';
 
-		drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, songname, 0);
+		int mid = (m->ww - TEXTW(songname)) * 0.5 - x;
+
+		drw_setscheme(drw, scheme[SchemeBar]);
+		drw_text(drw, x, 0, w, bh, mid, songname, 0);
+
+		drw_setscheme(drw, palscheme);
+		drw_rect(drw,
+			(m->ww * 0.5) - (TEXTW(songname) * 0.5) + (TEXTW(songname) - lrpad) * (1.0 - esunderlinew) * 0.5,
+			bh - (bh * underlineh) + 1,
+			(TEXTW(songname) - lrpad) * esunderlinew,
+			bh * underlineh,
+			1,
+			colorcode);
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
 }
@@ -877,7 +930,7 @@ focus(Client *c)
 		detachstack(c);
 		attachstack(c);
 		grabbuttons(c, 1);
-		XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
+		XSetWindowBorder(dpy, c->win, scheme[SchemeWindowSel][ColBorder].pixel);
 		setfocus(c);
 	} else {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
@@ -1121,7 +1174,7 @@ manage(Window w, XWindowAttributes *wa)
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
-	XSetWindowBorder(dpy, w, scheme[SchemeNorm][ColBorder].pixel);
+	XSetWindowBorder(dpy, w, scheme[SchemeWindowNorm][ColBorder].pixel);
 	configure(c); /* propagates border_width, if size doesn't change */
 	updatewindowtype(c);
 	updatesizehints(c);
@@ -1666,6 +1719,7 @@ setup(void)
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
+	palscheme = drw_scm_create(drw, palette, 7);
 	/* init bars */
 	updatebars();
 	updatestatus();
@@ -1908,7 +1962,7 @@ unfocus(Client *c, int setfocus)
 	if (!c)
 		return;
 	grabbuttons(c, 0);
-	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
+	XSetWindowBorder(dpy, c->win, scheme[SchemeWindowNorm][ColBorder].pixel);
 	if (setfocus) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);

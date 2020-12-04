@@ -21,15 +21,26 @@ static const char *fonts[]          	= {
 	"Twemoji:style=Regular:size=9",
 	"monospace:size=11"
 };
-static const char col_gray1[]       	= "#222222";
-static const char col_gray2[]       	= "#444444";
-static const char col_gray3[]       	= "#bbbbbb";
-static const char col_gray4[]       	= "#eeeeee";
-static const char col_cyan[]        	= "#005577";
-static const char *colors[][3]      	= {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+
+#include "gruvbox.c"
+static const char debug_color[] = "#ff0000"; // used in any slots that should never be visible
+static const char *colors[][3]      = {
+	/*               	fg			bg			border   */
+	[SchemeWindowNorm] = { 	gruv_light1,		debug_color,		gruv_dark1 },
+	[SchemeWindowSel] = { 	gruv_light1,		debug_color,		gruv_bright_blue },
+	[SchemeBar] = { 	gruv_light1,		gruv_dark1,		debug_color },
+	/*               	tags			status			extra status (mpd)   */
+	[SchemeUL] = {		gruv_bright_purple,	gruv_bright_blue,	gruv_bright_green},
+};
+
+static const char *palette[7] = {
+	gruv_bright_red,
+	gruv_bright_green,
+	gruv_bright_yellow,
+	gruv_bright_blue,
+	gruv_bright_purple,
+	gruv_bright_aqua,
+	gruv_bright_orange,
 };
 
 typedef struct {
