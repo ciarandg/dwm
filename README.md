@@ -8,6 +8,7 @@ dwm is an extremely fast, small, and dynamic window manager for X. This is my pe
 	- Twemoji
 	- Monospace
 ### Other
+	- mpc (window titles are replaced with currently playing song)
 	- In order to build dwm you need the Xlib header files.
 
 ## Installation
