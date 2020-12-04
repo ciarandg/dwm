@@ -763,11 +763,31 @@ drawbar(Monitor *m)
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
+	char curstext[256];
+	strcpy(curstext, stext);
+
+	int blockcount = 0;
+	int pos[16]; // an array of delimiter indices
+
+	/* use blocksep to split status into separate underlined blocks */
+	for (char *s = strchr(curstext, blocksep); s != NULL; s = strchr(s+1, blocksep)) {
+		*s = ' ';
+		if (*(s-2) == coldelim) {
+			memmove(s-2, s, strlen(curstext) - (int)(s - curstext));
+			s -= 2;
+			curstext[strlen(curstext) - 2] = '\0';
+		}
+
+		pos[blockcount] = (int)(s - curstext) + 1;
+		blockcount++;
+	}
+
+
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeNorm]);
-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
-		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
+		tw = TEXTW(curstext) - lrpad + statuspadding;
+		drw_text(drw, m->ww - tw, 0, tw, bh, 0, curstext, 0); // main status
 	}
 
 	for (c = m->clients; c; c = c->next) {
