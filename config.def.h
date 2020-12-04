@@ -6,8 +6,8 @@ static const unsigned int snap      	= 32;       	/* snap pixel */
 static const int showbar            	= 1;        	/* 0 means no bar */
 static const int topbar             	= 1;        	/* 0 means bottom bar */
 
-static const char blocksep		= '|';		/* delimeter character that separates status blocks */
-static const char coldelim		= '@';		/* delimeter character that denotes a status block's color index */
+static const char blocksep		= '|';		/* delimiter character that separates status blocks */
+static const char coldelim		= '@';		/* delimiter character that denotes a status block's color index */
 static const int statuspadding		= 20;		/* amount of padding on each side of the status */
 
 static const unsigned int gappih    	= 25;       	/* horiz inner gap between windows */
