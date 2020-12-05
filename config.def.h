@@ -48,7 +48,7 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spcalc", "-g", "60x17", "-e", "rquiet", NULL };
-const char *spcmd2[] = {"st", "-n", "spmusic", "-g", "118x19", "-e", "ncmpcpp-ueberzug", NULL };
+const char *spcmd2[] = {"st", "-n", "spmusic", "-g", "118x19", "-e", "ncmpcpp", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spcalc",      spcmd1},
@@ -182,6 +182,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_period,		spawn,		SHCMD("mpc repeat; mpd_update") },
 	{ MODKEY|ShiftMask,		XK_period,		spawn,		SHCMD("mpc next; mpd_update") },
 
+	{ MODKEY,			XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY,                       XK_Tab,    		view,		{0} },
 	{ MODKEY,			XK_Return, 		spawn,		{.v = termcmd } },
