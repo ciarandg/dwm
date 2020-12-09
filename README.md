@@ -1,5 +1,5 @@
 # Ciaran's dwm build
-dwm is an extremely fast, small, and dynamic window manager for X. This is my personal build. Many of the bindings and modifications are taken directly from Luke Smith's [https://github.com/LukeSmithxyz/dwm](build).
+dwm is an extremely fast, small, and dynamic window manager for X. This is my personal build. Many of the bindings and modifications are taken directly from Luke Smith's [build](https://github.com/LukeSmithxyz/dwm).
 
 ## Dependencies
 ### Fonts
