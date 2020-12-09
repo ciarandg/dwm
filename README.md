@@ -1,16 +1,23 @@
 # Ciaran's dwm build
-dwm is an extremely fast, small, and dynamic window manager for X. This is my personal build. Many of the bindings and modifications are taken directly from Luke Smith's [build](https://github.com/LukeSmithxyz/dwm).
+dwm is an extremely fast, small, and dynamic window manager for X. This is my personal build. Many of my bindings and modifications are taken directly from Luke Smith's [build](https://github.com/LukeSmithxyz/dwm).
+
+# Features
+- Sticky windows (`super+s`)
+- True fullscreen (`super+f`)
+- Multiple layouts, all of which work with vanitygaps
+- Customized dwmbar with coloured underlines and mpd status
+- Gruvbox theme
 
 ## Dependencies
 ### Fonts
-	- Noto Nerd Font
-	- mplus Nerd Font
-	- Twemoji
-	- Monospace
+- Noto Nerd Font
+- mplus Nerd Font
+- Twemoji
+- Monospace
 ### Other
-	- mpc (window titles are replaced with currently playing song)
-	- libxft-bgra (for displaying color emoji in dwmbar)
-	- In order to build dwm you need the Xlib header files.
+- mpc (window titles are replaced with currently playing song)
+- libxft-bgra (for displaying color emoji in dwmbar)
+- In order to build dwm you need the Xlib header files.
 
 ## Installation
 Edit config.mk to match your local setup (dwm is installed into
