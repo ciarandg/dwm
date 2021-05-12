@@ -157,7 +157,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_semicolon,		shifttag,	{.i = 1} },
 	{ MODKEY,			XK_z,			incrgaps,	{.i = +3 } },
 	{ MODKEY|ShiftMask,		XK_z,			incrgaps,	{.i = -3 } },
-	{ MODKEY,			XK_x,			spawn,		SHCMD("slock") },
+	{ MODKEY,			XK_x,			spawn,		SHCMD("i3lock -c 282828") },
 	{ MODKEY,			XK_c,	 		togglescratch,	{.ui = 0 } },
 	{ MODKEY,                       XK_b,			togglebar,	{0} },
 	{ MODKEY,			XK_m,	 		togglescratch,	{.ui = 1 } },
