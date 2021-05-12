@@ -166,6 +166,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_period,		spawn,		SHCMD("mpc repeat; mpd_update") },
 	{ MODKEY|ShiftMask,		XK_period,		spawn,		SHCMD("mpc next; mpd_update") },
 
+	{ MODKEY,		XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY,                       XK_Tab,    		view,		{0} },
 	{ MODKEY,			XK_Return, 		spawn,		{.v = termcmd } },
