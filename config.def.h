@@ -11,10 +11,10 @@ static const unsigned int gappoh    = 25;       /* horiz outer gap between windo
 static const unsigned int gappov    = 25;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const char *fonts[]          = {
-	"NotoSansMono Nerd Font:style=Condensed SemiBold,Bold:size=11",
-	"mplus Nerd Font Mono,M+ 2p:style=Bold:size=11",
-	"Twemoji:style=Regular:size=9",
-	"monospace:size=11"
+  "NotoSansMono Nerd Font:style=Condensed SemiBold,Bold:size=11",
+  "mplus Nerd Font Mono,M+ 2p:style=Bold:size=11",
+  "Twemoji:style=Regular:size=9",
+  "monospace:size=11"
 };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -22,36 +22,36 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+  /*               fg         bg         border   */
+  [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+  [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
 typedef struct {
-	const char *name;
-	const void *cmd;
+  const char *name;
+  const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spcalc", "-g", "60x17", "-e", "rquiet", NULL };
-const char *spcmd2[] = {"st", "-n", "spmusic", "-g", "118x20", "-e", "ncmpcpp-ueberzug", NULL };
+const char *spcmd1[] = { "st", "-n", "spcalc", "-g", "60x17", "-e", "rquiet", NULL };
+const char *spcmd2[] = { "st", "-n", "spmusic", "-g", "118x20", "-e", "ncmpcpp-ueberzug", NULL };
 static Sp scratchpads[] = {
-	/* name          cmd  */
-	{"spcalc",      spcmd1},
-	{"spmusic",	spcmd2},
+  /* name        cmd  */
+  { "spcalc",    spcmd1},
+  { "spmusic",   spcmd2},
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class	instance	title	tags mask	isfloating	monitor */
-	{ "Gimp",	NULL,		NULL,	0,		1,		-1 },
-	{ "Firefox",	NULL,		NULL,	1 << 8,		0,		-1 },
-	{ NULL,		"spcalc",	NULL,	SPTAG(0),	1,		-1 },
-	{ NULL,		"spmusic",	NULL,	SPTAG(1),	1,		-1 },
+  /* xprop(1):
+   *	WM_CLASS(STRING) = instance, class
+   *	WM_NAME(STRING) = title
+   */
+  /* class      instance        title   tags mask       isfloating      monitor */
+  {  "Gimp",    NULL,	        NULL,   0,              1,              -1 },
+  {  "Firefox", NULL,	        NULL,   1 << 8,	        0,              -1 },
+  {  NULL,      "spcalc",       NULL,   SPTAG(0),       1,              -1 },
+  {  NULL,      "spmusic",      NULL,   SPTAG(1),       1,              -1 },
 };
 
 /* layout(s) */
