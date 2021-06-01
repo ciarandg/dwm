@@ -118,7 +118,6 @@ static Key keys[] = {
 
 	{ MODKEY,                       XK_q,			killclient,	{0} },
 	{ MODKEY,			XK_w,			spawn,		SHCMD("$BROWSER") },
-	{ MODKEY,			XK_e,			spawn,		SHCMD("emacs") },
 	{ MODKEY,			XK_r,			spawn,		SHCMD("st -e lf") },
 	{ MODKEY|ShiftMask,		XK_r,			spawn,		SHCMD("st -e htop") },
 
