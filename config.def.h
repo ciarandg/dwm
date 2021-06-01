@@ -31,12 +31,16 @@ typedef struct {
   const char *name;
   const void *cmd;
 } Sp;
-const char *spcmd1[] = { "st", "-n", "spcalc", "-g", "60x17", "-e", "R", NULL };
-const char *spcmd2[] = { "st", "-n", "spmusic", "-g", "118x20", "-e", "ncmpcpp-ueberzug", NULL };
+const char *spcmd1[] = { "st", "-n", "spcalc",     "-g", "60x17",  "-e",  "R", NULL };
+const char *spcmd2[] = { "st", "-n", "spmusic",    "-g", "118x20", "-e", "ncmpcpp-ueberzug", NULL };
+const char *spcmd3[] = { "st", "-n", "sptorrents", "-g", "118x20",  "-e",  "tremc", NULL };
+const char *spcmd4[] = { "st", "-n", "sptasks",    "-g", "118x20", "-e", "vit", NULL };
 static Sp scratchpads[] = {
-  /* name        cmd  */
-  { "spcalc",    spcmd1},
-  { "spmusic",   spcmd2},
+  /* name          cmd  */
+  { "spcalc",      spcmd1},
+  { "spmusic",     spcmd2},
+  { "sptorrents",  spcmd3},
+  { "sptasks",     spcmd4},
 };
 
 /* tagging */
@@ -52,6 +56,8 @@ static const Rule rules[] = {
   {  "Firefox", NULL,	        NULL,   1 << 8,	        0,              -1 },
   {  NULL,      "spcalc",       NULL,   SPTAG(0),       1,              -1 },
   {  NULL,      "spmusic",      NULL,   SPTAG(1),       1,              -1 },
+  {  NULL,      "sptorrents",   NULL,   SPTAG(2),       1,              -1 },
+  {  NULL,      "sptasks",      NULL,   SPTAG(3),       1,              -1 },
 };
 
 /* layout(s) */
@@ -159,13 +165,15 @@ static Key keys[] = {
 	{ MODKEY,			XK_x,			spawn,		SHCMD("i3lock -c 282828") },
 	{ MODKEY,			XK_c,	 		togglescratch,	{.ui = 0 } },
 	{ MODKEY,                       XK_b,			togglebar,	{0} },
+	{ MODKEY,			XK_n,	 		togglescratch,	{.ui = 3 } },
+	{ MODKEY|ShiftMask,		XK_n,	 		togglescratch,	{.ui = 2 } },
 	{ MODKEY,			XK_m,	 		togglescratch,	{.ui = 1 } },
 	{ MODKEY,			XK_comma,		spawn,		SHCMD("mpc seek 0%; mpd_update") },
 	{ MODKEY|ShiftMask,		XK_comma,		spawn,		SHCMD("mpc prev; mpd_update") },
 	{ MODKEY,			XK_period,		spawn,		SHCMD("mpc repeat; mpd_update") },
 	{ MODKEY|ShiftMask,		XK_period,		spawn,		SHCMD("mpc next; mpd_update") },
 
-	{ MODKEY,		XK_BackSpace,		spawn,		SHCMD("sysact") },
+	{ MODKEY,			XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY,                       XK_Tab,    		view,		{0} },
 	{ MODKEY,			XK_Return, 		spawn,		{.v = termcmd } },
