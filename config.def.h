@@ -143,7 +143,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10; mpd_update") },
 	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +60; mpd_update") },
 
-	{ MODKEY, 			XK_backslash,		spawn,		SHCMD("mpv_clipboard") },
+	{ MODKEY, 			XK_backslash,		spawn,		SHCMD("clipboard_handler") },
 
 	{ MODKEY,			XK_a,			togglegaps,	{0} },
 	{ MODKEY|ShiftMask,		XK_a,			defaultgaps,	{0} },
