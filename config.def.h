@@ -179,6 +179,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Return, 		spawn,		{.v = termcmd } },
 	{ MODKEY,                       XK_space,  		zoom,		{0} },
 	{ MODKEY,			XK_F2,			quit,		{1} },
+	{ MODKEY,			XK_F9,			spawn,		SHCMD("vpn_switch") },
 	{ MODKEY,			XK_F11,			spawn,		SHCMD("scrot && notify-send \"Took screenshot\"") },
 	{ MODKEY|ShiftMask,		XK_F11,			spawn,		SHCMD("scrot -s && notify-send \"Took screenshot\"") },
 	{ MODKEY,			XK_F12,			spawn,		SHCMD("jack_start && notify-send \"Successfully started JACK\"") },
