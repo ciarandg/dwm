@@ -162,7 +162,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_semicolon,		shifttag,	{.i = 1} },
 	{ MODKEY,			XK_z,			incrgaps,	{.i = +3 } },
 	{ MODKEY|ShiftMask,		XK_z,			incrgaps,	{.i = -3 } },
-	{ MODKEY,			XK_x,			spawn,		SHCMD("dm-tool lock") },
+	{ MODKEY,			XK_x,			spawn,		SHCMD("light-locker-command -l") },
 	{ MODKEY,			XK_c,	 		togglescratch,	{.ui = 0 } },
 	{ MODKEY,                       XK_b,			togglebar,	{0} },
 	{ MODKEY|ShiftMask,             XK_b,			spawn, 		SHCMD("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'") },
