@@ -118,7 +118,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      		7)
 	TAGKEYS(                        XK_9,                      		8)
 
-	{ MODKEY,			XK_grave,		spawn,		SHCMD("gopass_dmenu") },
 	{ MODKEY,			XK_minus,		spawn,		SHCMD("brightinc -10") },
 	{ MODKEY,			XK_equal,		spawn,		SHCMD("brightinc 10") },
 
