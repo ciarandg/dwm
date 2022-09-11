@@ -118,8 +118,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      		7)
 	TAGKEYS(                        XK_9,                      		8)
 
-	{ MODKEY,			XK_minus,		spawn,		SHCMD("brightinc -10") },
-	{ MODKEY,			XK_equal,		spawn,		SHCMD("brightinc 10") },
+	{ MODKEY,			XK_minus,		spawn,		SHCMD("brighter -i -10") },
+	{ MODKEY,			XK_equal,		spawn,		SHCMD("brighter -i 10") },
 
 	{ MODKEY,                       XK_q,			killclient,	{0} },
 	{ MODKEY,			XK_w,			spawn,		SHCMD("$BROWSER") },
